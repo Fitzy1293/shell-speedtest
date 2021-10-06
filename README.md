@@ -14,20 +14,18 @@ We'll go through a program that tests two scripts, with the only difference bein
 
 The scripts file names begin the same, but have `-bash` or `-dash` depending on the shebang in the file.
 
-- bibtextcreator-bash.sh
-- bibtextcreator-dash.sh
+- [bibtextcreator-bash.sh](bibtextcreator-bash.sh)
+- [bibtextcreator-dash.sh](bibtextcreator-dash.sh)
 
 The script does basic argument handling, then uses `pdftotext` to save a neatly formatted string of the input PDF's first pages. Finally it echoes the string to /dev/null.
 
-Searching through a PDF as if it were a plaintext file is a typical reason one might write a shell script; for example I've used `pdftotext` to grep for an ISBN or DOI and programatically do citations.
+Searching through a PDF as if it were a plaintext file is a typical reason one might write a shell script; for example you can use `pdftotext` to grep for an ISBN or DOI and programatically do citations.
 
+Note that I'm using Ubuntu 20.04, and the the paths to these shells may be different on your system.
 
 Again, the only difference is shebang line `#!/bin/bash` or ` #!/bin/dash`.
 
-Note that I'm using ubuntu 20.04, and the the paths to these shells may be different on your system.
-
-
-Now the actual script.
+Now the actual script, without shebang line.
 
 
 ```shell
@@ -60,7 +58,7 @@ echo "${IDENTIFIER_SEARCH_AREA}" >> /dev/null
 
 # The runner script  
 
-Now that we have a script ready to compare the efficiency Bash and Dash, let's think about how we want to go about devising a script that acts as a runner.
+Now that we have a script ready to compare the efficiency Bash to Dash, let's think about how we want to go about devising a script that acts as a runner.
 
 We want to end up with a script where you can just run something like `shell_speedtest bash` and `shell_speedtest dash`
 
@@ -104,18 +102,12 @@ shell_speedtest bash
 shell_speedtest dash
 ```
 
+# Conclusion
 
-
-The results show that Dash is not just trivially faster. 
+The results show that Dash is not just trivially faster, it was consistently ~10% faster than Bash. 
 
 ![runs](images/500-and-1000-runs.png)
 
 Even with changing up the order of the shells, (meaning `shell_speedtest dash` gets executed first), dash is faster. 
 
 ![runs](images/reversed-runs.png)
-
-
-
-# TODO
-
-- [] Make the number of runs a command line arg, right now it's hard-coded.
